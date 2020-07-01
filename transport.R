@@ -1,20 +1,44 @@
+#'---
+#'title: "Solve Min Cost Transportation Problem with Pyomo using R"
+#'author: "notesofdabbler"
+#'---
+#+
+#  Min cost transportation problem
+#  taken from:
+#  https://nbviewer.jupyter.org/github/Pyomo/PyomoGallery/blob/master/transport/transport.ipynb
+#
+# set-up python version to use
+reticulate::use_python("/opt/anaconda3/bin/python")
 library(reticulate)
-library(dplyr)
 
+# import pyomo
+pyo = import("pyomo.environ", convert = FALSE)
 bi = import_builtins()
 
-pyo = import("pyomo.environ", convert = FALSE)
+# had signal handling issues when using solver. Turned
+# off signal handling based on this discussion thread
+# https://github.com/PyUtilib/pyutilib/issues/31
+pyulib = import("pyutilib.subprocess.GlobalData")
+pyulib$DEFINE_SIGNAL_HANDLERS_DEFAULT = FALSE
+
+# printing model to a file, reading it back into R to print in R markdown
+mdl_print = function(m) {
+  printstr = "
+with open('tmp_model.txt', 'w') as f:
+  r.mdl.pprint(ostream=f)
+f.close()
+              "
+  printstr = gsub("mdl", m, printstr)
+  py_run_string(printstr)
+  printstr_R = paste(readLines("tmp_model.txt"), collapse = "\n")
+  return(printstr_R)
+}
+
+# get operators
 source("operators.R")
 
-# plants
-plants = c("seattle", "san-diego")
-# markets
-mkts = c("new-york", "chicago", "topeka")
-
-# capacity of plants
-cap = list("seattle" = 350, "san-diego" = 600)
-# demand of markets
-dem = list("new-york" = 325, "chicago" = 300, "topeka" = 275)
+# load other libraries
+library(dplyr)
 
 # shipping cost between plants and markets
 costdf = tribble(
@@ -36,8 +60,10 @@ dict_from_df = function(df) {
   return(dfdict)
 }
 
+# this is a round about way to get a dictionary that has a tuple as key
+# couldn't figure out how to write a list that would get converted to this dictionary
 cost = dict_from_df(costdf %>% select(plants, mkts, cost))
-dict_from_df(costdf)
+cost
 
 # create the model object
 M = pyo$ConcreteModel()
@@ -87,18 +113,26 @@ objective_rule = function(m) {
 }
 M$objective = pyo$Objective(rule = objective_rule, sense = pyo$minimize)
 
+# print model
+cat(mdl_print("M"))
+
 # solve using solver glpk
 opt = pyo$SolverFactory('glpk')
 results = opt$solve(M)
 
-M$x$display()
-
+# get results into a dataframe
 res_L = list()
-k = 0
+k = 1
 for(i in bi$list(M$plants)) {
     for(j in bi$list(M$mkts)) {
-        res_L[[k]] = list(plant = i, mkt = j, qty = py_to_r(M$x[tupe(i, j)]()))
+        res_L[[k]] = list(plant = i, mkt = j, qty = py_to_r(M$x[tuple(i, j)]()))
+        k = k + 1
   }
 }
 res_df = bind_rows(res_L)
 res_df
+
+
+#'### Session Info
+sessionInfo()
+# pyomo version used is 5.7
