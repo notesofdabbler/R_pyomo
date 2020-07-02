@@ -370,16 +370,16 @@ summary {
 </div>
 
 
-<p>This example estimates reaction rates for the reactions <span class="math inline">\(A \rightarrow B \rightarrow C\)</span> based on experimental data on concentrations of <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span> over time. This example is taken from the book <a href="https://sites.engineering.ucsb.edu/~jbraw/chemreacfun/">Chemical Reactor Analysis and Design - Rawlings and Eckerdt</a> The parameter estimation problem is to find the rate constants <span class="math inline">\(k1\)</span>, <span class="math inline">\(k2\)</span> and initial concentrations of A, B, and C that minimize the sum of squares error between experimental and predicted data. <span class="math display">\[
+<p>This example estimates reaction rates for the reactions <span class="math inline">\(A \rightarrow B \rightarrow C\)</span> based on experimental data on concentrations of <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span> over time. This example is taken from the book <a href="https://sites.engineering.ucsb.edu/~jbraw/chemreacfun/">Chemical Reactor Analysis and Design - Rawlings and Ekerdt</a> The parameter estimation problem is to find the rate constants <span class="math inline">\(k1\)</span>, <span class="math inline">\(k2\)</span> and initial concentrations of A, B, and C that minimize the sum of squares error between experimental and predicted data. <span class="math display">\[
 \min \;\; \sum_{i = 1}^N((ca(t_i) - ca^{meas}(t_i))^2 + 
                           (cb(t_i) - cb^{meas}(t_i))^2 +
                           (cc(t_i) - cc^{meas}(t_i))^2) \\
   \frac{dca}{dt} = -k_1ca \\
   \frac{dcb}{dt} = k_1ca - k_2cb \\
-  \frac{dcc}{dt} = k_2cb
-  ca[0] = ca0
-  cb[0] = cb0
-  cc[0] = cc0
+  \frac{dcc}{dt} = k_2cb \\
+  ca[0] = ca0 \\
+  cb[0] = cb0 \\
+  cc[0] = cc0 \\
   0 \leq t \leq t_f
 \]</span> where experimental data on concentrations is measured at <span class="math inline">\(N\)</span> time points <span class="math inline">\(\{t_1, t_2, \ldots, t_N\}\)</span></p>
 <pre class="r"><code># set-up python version to use
@@ -530,12 +530,12 @@ solver$solve(M, logfile = &quot;tmp.log&quot;)</code></pre>
 ##   Termination condition: optimal
 ##   Id: 0
 ##   Error rc: 0
-##   Time: 0.13192176818847656
+##   Time: 0.13445234298706055
 ## Solution: 
 ## - number of solutions: 0
 ##   number of solutions displayed: 0</code></pre>
 <pre class="r"><code>cat(paste(readLines(&quot;tmp.log&quot;), collapse = &quot;\n&quot;))</code></pre>
-<pre><code>## Solver command line: [&#39;/opt/anaconda3/bin/ipopt&#39;, &#39;/var/folders/h0/0h0h0yrs6f76syrmv1_q13mw0000gn/T/tmppf84zwje.pyomo.nl&#39;, &#39;-AMPL&#39;]
+<pre><code>## Solver command line: [&#39;/opt/anaconda3/bin/ipopt&#39;, &#39;/var/folders/h0/0h0h0yrs6f76syrmv1_q13mw0000gn/T/tmpbmx190u9.pyomo.nl&#39;, &#39;-AMPL&#39;]
 ## 
 ## Ipopt 3.12.12: 
 ## 
@@ -610,7 +610,7 @@ solver$solve(M, logfile = &quot;tmp.log&quot;)</code></pre>
 ## Number of equality constraint Jacobian evaluations   = 27
 ## Number of inequality constraint Jacobian evaluations = 0
 ## Number of Lagrangian Hessian evaluations             = 26
-## Total CPU secs in IPOPT (w/o function evaluations)   =      0.100
+## Total CPU secs in IPOPT (w/o function evaluations)   =      0.101
 ## Total CPU secs in NLP function evaluations           =      0.002
 ## 
 ## EXIT: Optimal Solution Found.

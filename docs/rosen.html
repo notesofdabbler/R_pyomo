@@ -434,7 +434,7 @@ cat(mdl_print(&quot;M&quot;))</code></pre>
 solver = pyo$SolverFactory(&quot;ipopt&quot;)
 res = solver$solve(M, logfile = &quot;tmp.log&quot;)
 cat(paste(readLines(&quot;tmp.log&quot;), collapse = &quot;\n&quot;))</code></pre>
-<pre><code>## Solver command line: [&#39;/opt/anaconda3/bin/ipopt&#39;, &#39;/var/folders/h0/0h0h0yrs6f76syrmv1_q13mw0000gn/T/tmpcxiipuzv.pyomo.nl&#39;, &#39;-AMPL&#39;]
+<pre><code>## Solver command line: [&#39;/opt/anaconda3/bin/ipopt&#39;, &#39;/var/folders/h0/0h0h0yrs6f76syrmv1_q13mw0000gn/T/tmpxr3cilps.pyomo.nl&#39;, &#39;-AMPL&#39;]
 ## 
 ## Ipopt 3.12.12: 
 ## 
@@ -493,7 +493,7 @@ cat(paste(readLines(&quot;tmp.log&quot;), collapse = &quot;\n&quot;))</code></pr
 ## Number of equality constraint Jacobian evaluations   = 0
 ## Number of inequality constraint Jacobian evaluations = 0
 ## Number of Lagrangian Hessian evaluations             = 11
-## Total CPU secs in IPOPT (w/o function evaluations)   =      0.038
+## Total CPU secs in IPOPT (w/o function evaluations)   =      0.039
 ## Total CPU secs in NLP function evaluations           =      0.000
 ## 
 ## EXIT: Optimal Solution Found.
@@ -502,6 +502,34 @@ cat(paste(readLines(&quot;tmp.log&quot;), collapse = &quot;\n&quot;))</code></pr
 M$x();M$y()</code></pre>
 <pre><code>## 1.0000000000008233</code></pre>
 <pre><code>## 1.0000000000016314</code></pre>
+<div id="session-info" class="section level3">
+<h3>Session Info</h3>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 4.0.1 (2020-06-06)
+## Platform: x86_64-apple-darwin17.0 (64-bit)
+## Running under: macOS High Sierra 10.13.6
+## 
+## Matrix products: default
+## BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] reticulate_1.16
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_1.0.4.6    lattice_0.20-41 digest_0.6.25   grid_4.0.1     
+##  [5] jsonlite_1.6.1  magrittr_1.5    evaluate_0.14   highr_0.8      
+##  [9] rlang_0.4.6     stringi_1.4.6   Matrix_1.2-18   rmarkdown_2.3  
+## [13] tools_4.0.1     stringr_1.4.0   xfun_0.14       yaml_2.2.1     
+## [17] compiler_4.0.1  htmltools_0.5.0 knitr_1.28</code></pre>
+<pre class="r"><code># pyomo version used is 5.7</code></pre>
+</div>
 
 
 

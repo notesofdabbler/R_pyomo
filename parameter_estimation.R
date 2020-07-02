@@ -6,7 +6,7 @@
 #' This example estimates reaction rates for the reactions $A \rightarrow B \rightarrow C$ 
 #' based on experimental data on concentrations of $A$, $B$ and $C$ over time. This example
 #' is taken from the book 
-#' [Chemical Reactor Analysis and Design - Rawlings and Eckerdt](https://sites.engineering.ucsb.edu/~jbraw/chemreacfun/)
+#' [Chemical Reactor Analysis and Design - Rawlings and Ekerdt](https://sites.engineering.ucsb.edu/~jbraw/chemreacfun/)
 #' The parameter estimation problem is to find the rate constants $k1$, $k2$ and initial
 #' concentrations of A, B, and C that minimize the sum of squares error between experimental
 #' and predicted data.
@@ -16,10 +16,10 @@
 #'                           (cc(t_i) - cc^{meas}(t_i))^2) \\
 #'   \frac{dca}{dt} = -k_1ca \\
 #'   \frac{dcb}{dt} = k_1ca - k_2cb \\
-#'   \frac{dcc}{dt} = k_2cb
-#'   ca[0] = ca0
-#'   cb[0] = cb0
-#'   cc[0] = cc0
+#'   \frac{dcc}{dt} = k_2cb \\
+#'   ca[0] = ca0 \\
+#'   cb[0] = cb0 \\
+#'   cc[0] = cc0 \\
 #'   0 \leq t \leq t_f
 #' $$
 #' where experimental data on concentrations is measured at $N$ time points $\{t_1, t_2, \ldots, t_N\}$
